@@ -13,8 +13,8 @@ public class CameraPositioning : MonoBehaviour
     public float RadiusMax;
     public float TiltMin;
     public float TiltMax;
-
-    private Transform PlayerTransform;
+    public Transform playerTf;
+    
     public void Adjust(float Radius, float Tilt, float Rotation)
     {
         if (Radius < RadiusMin || Radius > RadiusMax)
@@ -30,20 +30,20 @@ public class CameraPositioning : MonoBehaviour
         Tilt *= RadConv;
         Rotation *= RadConv;
         float w = Mathf.Sin(Tilt);
-        transform.position = new Vector3(Mathf.Cos(Rotation) * w, Mathf.Cos(Tilt), Mathf.Sin(Rotation) * w) * Radius;
-        transform.rotation = Quaternion.LookRotation(-transform.position);
+        transform.position = playerTf.position + new Vector3(Mathf.Cos(Rotation) * w, Mathf.Cos(Tilt), Mathf.Sin(Rotation) * w) * Radius;
+        transform.LookAt(playerTf);
     }
     
     // Start is called before the first frame update
     void Start()
     {
-        PlayerTransform = GetComponentInParent<Transform>();
+        playerTf = GameObject.FindWithTag("Player").GetComponent<Transform>();
         Adjust(InitRadius, InitTilt, InitRotation);
-
     }
 
     // Update is called once per frame
     void Update()
     {
+        Adjust(InitRadius, InitTilt, InitRotation);
     }
 }
