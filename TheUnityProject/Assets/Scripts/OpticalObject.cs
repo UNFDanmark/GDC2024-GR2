@@ -1,26 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.UI;
 using UnityEngine;
 
 public class OpticalObject : MonoBehaviour
 {
-    public float fov;
-    
-    private GameObject player;
+    private PlayerScript player;
 
     private MeshRenderer renderer;
+
+    private Mesh mesh;
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindWithTag("Player");
+        player = GameObject.FindWithTag("Player").GetComponent<PlayerScript>();
         renderer = GetComponent<MeshRenderer>();
+        mesh = GetComponent<Mesh>();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 fromPlayer = transform.position - player.transform.position;
-        float angle = Mathf.Abs(Vector3.Angle(fromPlayer, player.transform.forward));
-        renderer.enabled = angle <= fov;
+        bool inFov = player.InFOV(transform.position);
+        if (renderer.enabled != inFov && inFov == false)
+        {
+            GameObject obj = Instantiate(gameObject);
+            Destroy(obj.GetComponent<OpticalObject>());
+            obj.AddComponent<MemoryShadow>().Init(player);
+        }
+
+        renderer.enabled = inFov;
+
     }
 }

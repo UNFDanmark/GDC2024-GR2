@@ -13,7 +13,7 @@ public class CameraPositioning : MonoBehaviour
     public float RadiusMax;
     public float TiltMin;
     public float TiltMax;
-    public Transform playerTf;
+    private Transform playerTf;
     
     public void Adjust(float Radius, float Tilt, float Rotation)
     {

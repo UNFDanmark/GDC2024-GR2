@@ -9,12 +9,19 @@ public class PlayerScript : MonoBehaviour
     public float fullSpeedTime;
     public float fullSpeed;
     public float rotationSpeed;
-    
+    public float fov;
     
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+    }
+    
+    public bool InFOV(Vector3 position)
+    {
+        Vector3 fromPlayer = position - transform.position;
+        float angle = Mathf.Abs(Vector3.Angle(fromPlayer, transform.forward));
+        return angle <= fov;
     }
 
     float AdjustAxis(float previous, float direction)
@@ -31,7 +38,6 @@ public class PlayerScript : MonoBehaviour
         {
             New = fullSpeed;
         }
-        print(Mathf.Sign(direction * fullSpeed - previous));
         return New;
     }
 
@@ -55,7 +61,6 @@ public class PlayerScript : MonoBehaviour
         //0 1 D = 0 grader
         //1 1 DW = 315 grader
         float degrees = -1;
-
         if (vert == -1 && hori == -1) degrees = 135;
         else if (vert == 0 && hori == -1) degrees = 180;
         else if (vert == 1 && hori == -1) degrees = 225;
@@ -64,7 +69,6 @@ public class PlayerScript : MonoBehaviour
         else if (vert == -1 && hori == 1) degrees = 45;
         else if (vert == 0 && hori == 1) degrees = 0;
         else if (vert == 1 && hori == 1) degrees = 315;
-
         if (degrees != -1)
         {
             float from = transform.eulerAngles.y;
