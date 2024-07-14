@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    private Rigidbody rb;
+    private Vector3 velocity;
     private Transform bodyTf;
     public float fullSpeedTime;
     public float fullSpeed;
@@ -14,7 +14,7 @@ public class PlayerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+
     }
     
     public bool InFOV(Vector3 position)
@@ -44,12 +44,11 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 vel = rb.velocity;
+        transform.position += velocity * Time.deltaTime;
         float vert = Input.GetAxis("Vertical");
         float hori = Input.GetAxis("Horizontal");
-        vel.x = AdjustAxis(vel.x, -vert);
-        vel.z = AdjustAxis(vel.z, hori);
-        rb.velocity = vel;
+        velocity.x = AdjustAxis(velocity.x, -vert);
+        velocity.z = AdjustAxis(velocity.z, hori);
         //vert hori
         //-1 -1 AS = 135 grader
         //0 -1 A = 180 grader

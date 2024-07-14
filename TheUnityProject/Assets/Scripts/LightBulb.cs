@@ -2,18 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryItem : MonoBehaviour
+public class LightBulb : MonoBehaviour
 {
-    private InventoryManager manager;
+    private Light light;
+    
     // Start is called before the first frame update
     void Start()
     {
-        manager = GameObject.FindWithTag("God").GetComponent<InventoryManager>();
+        light = GetComponent<Light>();
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void Toggle()
+    {
+        light.enabled = !light.enabled;
     }
 }
