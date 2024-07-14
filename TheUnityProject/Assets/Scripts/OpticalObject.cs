@@ -7,30 +7,32 @@ public class OpticalObject : MonoBehaviour
 {
     private PlayerScript player;
 
-    private MeshRenderer renderer;
+    private MeshRenderer rend;
 
     private Mesh mesh;
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindWithTag("Player").GetComponent<PlayerScript>();
-        renderer = GetComponent<MeshRenderer>();
+        rend = GetComponent<MeshRenderer>();
         mesh = GetComponent<Mesh>();
-        
+        GetComponent<Rigidbody>().velocity = new Vector3(0.2f, 0, 0);
     }
 
     // Update is called once per frame
     void Update()
     {
         bool inFov = player.InFOV(transform.position);
-        if (renderer.enabled != inFov && inFov == false)
+        if (rend.enabled != inFov && inFov == false)
         {
             GameObject obj = Instantiate(gameObject);
             Destroy(obj.GetComponent<OpticalObject>());
+            Destroy(obj.GetComponent<Rigidbody>());
+            Destroy(obj.GetComponent<Collider>());
             obj.AddComponent<MemoryShadow>().Init(player);
         }
 
-        renderer.enabled = inFov;
+        rend.enabled = inFov;
 
     }
 }
