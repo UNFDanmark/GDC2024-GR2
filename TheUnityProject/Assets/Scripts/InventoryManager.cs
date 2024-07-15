@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,9 +58,7 @@ public class InventoryManager : MonoBehaviour
     {
         if (own[id])
         {
-            print("Already picked that up");
-            int a = 0;
-            int b = 1 / a;
+            throw new Exception("Already picked that up :/");
         }
         own[id] = true;
         int total = 0;
@@ -83,10 +82,7 @@ public class InventoryManager : MonoBehaviour
     {
         if(itemTypes.Count != itemNames.Count)
         {
-            int a = 0;
-            print("lol stupid");
-            int b = 1 / a;
-            while(true){}
+            throw new Exception("Malformed item list :/");
         }
         foreach(InventoryItemType item in itemTypes)
         {

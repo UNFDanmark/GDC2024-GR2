@@ -4,51 +4,39 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    private Vector3 velocity;
-    private Transform bodyTf;
-    public float fullSpeedTime;
-    public float fullSpeed;
+    private Rigidbody rb;
+    public float walkingAcc;
     public float rotationSpeed;
     public float fov;
+    public float visionAroundRadius;
     
     // Start is called before the first frame update
     void Start()
     {
-
+        rb = GetComponent<Rigidbody>();
     }
-    
+
     public bool InFOV(Vector3 position)
     {
-        Vector3 fromPlayer = position - transform.position;
+        position.y = 0;
+        Vector3 ownPosition = transform.position;
+        ownPosition.y = 0;
+        Vector3 fromPlayer = position - ownPosition;
+        if (fromPlayer.magnitude <= visionAroundRadius)
+        {
+            return true;
+        }
+
         float angle = Mathf.Abs(Vector3.Angle(fromPlayer, transform.forward));
         return angle <= fov;
-    }
-
-    float AdjustAxis(float previous, float direction)
-    {
-        if(direction == 0f && Mathf.Abs(previous) < Time.deltaTime * fullSpeed / fullSpeedTime)
-        {
-            return 0f;
-        }
-        float New = previous + Mathf.Sign(direction * fullSpeed - previous) * Time.deltaTime * fullSpeed / fullSpeedTime;
-        if(New < -fullSpeed)
-        {
-            New = -fullSpeed;
-        }else if(New > fullSpeed)
-        {
-            New = fullSpeed;
-        }
-        return New;
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position += velocity * Time.deltaTime;
         float vert = Input.GetAxis("Vertical");
         float hori = Input.GetAxis("Horizontal");
-        velocity.x = AdjustAxis(velocity.x, -vert);
-        velocity.z = AdjustAxis(velocity.z, hori);
+        rb.AddForce(Time.deltaTime * walkingAcc * new Vector3(-vert, 0, hori), ForceMode.Impulse);
         //vert hori
         //-1 -1 AS = 135 grader
         //0 -1 A = 180 grader

@@ -16,7 +16,6 @@ public class OpticalObject : MonoBehaviour
         player = GameObject.FindWithTag("Player").GetComponent<PlayerScript>();
         rend = GetComponent<MeshRenderer>();
         mesh = GetComponent<Mesh>();
-        GetComponent<Rigidbody>().velocity = new Vector3(0.2f, 0, 0);
     }
 
     // Update is called once per frame
@@ -25,10 +24,11 @@ public class OpticalObject : MonoBehaviour
         bool inFov = player.InFOV(transform.position);
         if (rend.enabled != inFov && inFov == false)
         {
-            GameObject obj = Instantiate(gameObject);
+            GameObject obj = Instantiate(gameObject, transform.parent);
             Destroy(obj.GetComponent<OpticalObject>());
             Destroy(obj.GetComponent<Rigidbody>());
             Destroy(obj.GetComponent<Collider>());
+            Destroy(obj.GetComponent<TestLightObject>());
             obj.AddComponent<MemoryShadow>().Init(player);
         }
 

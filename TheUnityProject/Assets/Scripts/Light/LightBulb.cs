@@ -5,6 +5,7 @@ using UnityEngine;
 public class LightBulb : MonoBehaviour
 {
     private Light light;
+    public float lightEffectRadius;
     
     // Start is called before the first frame update
     void Start()
@@ -16,6 +17,11 @@ public class LightBulb : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public bool isCloseEnough(Vector3 position)
+    {
+        return light.enabled && (transform.position - position).magnitude <= lightEffectRadius;
     }
 
     public void Toggle()
