@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
     private Rigidbody rb;
+    private bool enabled = true;
     public float walkingAcc;
     public float rotationSpeed;
     public float fov;
@@ -14,6 +15,11 @@ public class PlayerScript : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+    }
+
+    public bool isSpace()
+    {
+        return Input.GetKeyDown("space");
     }
 
     public bool InFOV(Vector3 position)
@@ -31,11 +37,26 @@ public class PlayerScript : MonoBehaviour
         return angle <= fov;
     }
 
+    public void turnOffMovement()
+    {
+        enabled = false;
+    }
+    
+    public void turnOnMovement()
+    {
+        enabled = true;
+    }
+
     // Update is called once per frame
     void Update()
     {
         float vert = Input.GetAxis("Vertical");
         float hori = Input.GetAxis("Horizontal");
+        if (!enabled)
+        {
+            vert = 0;
+            hori = 0;
+        }
         rb.AddForce(Time.deltaTime * walkingAcc * new Vector3(-vert, 0, hori), ForceMode.Impulse);
         //vert hori
         //-1 -1 AS = 135 grader
