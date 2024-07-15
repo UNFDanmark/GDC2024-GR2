@@ -7,16 +7,11 @@ using UnityEngine.Tilemaps;
 public class RoomScript : MonoBehaviour
 {
     private bool inside = false;
-    private MeshRenderer[] children;
     
     // Start is called before the first frame update
     void Start()
     {
-        children = gameObject.GetComponentsInChildren<MeshRenderer>();
-        foreach (MeshRenderer child in children)
-        {
-            print(child);
-        }
+        
     }
 
     // Update is called once per frame
@@ -29,9 +24,9 @@ public class RoomScript : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            foreach (MeshRenderer child in children)
+            foreach (Transform child in transform)
             {
-                child.enabled = true;
+                child.gameObject.SetActive(true);
             }
             inside = true;
         }
@@ -41,9 +36,9 @@ public class RoomScript : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            foreach (MeshRenderer child in children)
+            foreach (Transform child in transform)
             {
-                child.enabled = false;
+                child.gameObject.SetActive(false);
             }
             inside = false;
         }

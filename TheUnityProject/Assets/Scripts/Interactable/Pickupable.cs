@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryItem : Interactable
+public class Pickupable : Interactable
 {
     private InventoryManager manager;
     public int itemId;
