@@ -6,7 +6,7 @@ using UnityEngine;
 
 public abstract class Interactable : MonoBehaviour
 {
-    public float triggerBoxRadius = 1;
+    public float interactBoxRadius = 1;
     public float interactCooldown = 0;
 
     // Start is called before the first frame update
@@ -16,7 +16,7 @@ public abstract class Interactable : MonoBehaviour
         child.transform.SetParent(transform, false);
         child.AddComponent<InteractChild>();
         BoxCollider col = child.AddComponent<BoxCollider>();
-        col.size = new Vector3(triggerBoxRadius, 10, triggerBoxRadius);
+        col.size = new Vector3(interactBoxRadius, 10, interactBoxRadius);
         col.isTrigger = true;
         
     }
