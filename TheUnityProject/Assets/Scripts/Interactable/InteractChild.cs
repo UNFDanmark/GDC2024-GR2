@@ -7,7 +7,7 @@ public class InteractChild : MonoBehaviour
     private bool isInside = false;
 
     
-    private float interactCooldownLeft;
+    private float interactCooldownLeft = 0;
 
     private Interactable parent;
     // Start is called before the first frame update

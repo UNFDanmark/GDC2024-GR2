@@ -11,14 +11,6 @@ public class Pickupable : Interactable
     {
         manager = GameObject.FindWithTag("God").GetComponent<InventoryManager>();
     }
-    
-    public override void InteractableStart()
-    {
-    }
-
-    public override void InteractableEnd()
-    {
-    }
 
     public override void OnInteract()
     {
