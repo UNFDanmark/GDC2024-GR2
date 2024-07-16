@@ -25,8 +25,10 @@ public class Observe : Interactable
     private TextAsset json;
     private Dialogue dialogue;
     private GameObject box;
+    private GameObject nameBox;
     private PlayerScript player;
     private TMP_Text text;
+    private TMP_Text name;
     private bool active = false;
     private int dialogueProgress;
     private int nextLetter;
@@ -37,7 +39,24 @@ public class Observe : Interactable
         dialogue = JsonUtility.FromJson<Dialogue>(json.text);
         box = GameObject.FindWithTag("DialogueObj");
         text = GameObject.FindWithTag("Dialogue").GetComponent<TMP_Text>();
+        name = GameObject.FindWithTag("DialogueName").GetComponent<TMP_Text>();
         player = GameObject.FindWithTag("Player").GetComponent<PlayerScript>();
+        nameBox = GameObject.FindWithTag("DialogueNameObj");
+        box.SetActive(false);
+    }
+
+    void setName()
+    {
+        string nameText = dialogue.dialogue[dialogueProgress].name;
+        if (nameText == "")
+        {
+            nameBox.SetActive(false);
+        }
+        else
+        {
+            nameBox.SetActive(true);
+            name.text = nameText;
+        }
     }
 
     public override void InteractableUpdate()
@@ -56,7 +75,7 @@ public class Observe : Interactable
                         player.turnOnMovement();
                         return;
                     }
-
+                    setName();
                     text.text = "";
                     nextLetter = 0;
                 }
@@ -91,12 +110,17 @@ public class Observe : Interactable
 
     public override void OnInteract()
     {
+        if (active)
+        {
+            return;
+        }
         player.turnOffMovement();
         active = true;
         text.text = "";
         nextLetter = 0;
         nextLetterIn = betweenLettersTime;
         dialogueProgress = 0;
+        setName();
         box.SetActive(true);
     }
 }

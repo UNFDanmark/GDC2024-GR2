@@ -16,7 +16,7 @@ public class HeadacheScript : LightObject
     {
         if (InLight())
         {
-            headache = headache + headacheRate * Time.deltaTime;
+            headache += headacheRate * Time.deltaTime;
             headacheBar.value = headache;
 
             if (headache >= 1)

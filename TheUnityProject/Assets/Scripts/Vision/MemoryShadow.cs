@@ -8,14 +8,10 @@ public class MemoryShadow : MonoBehaviour
     private bool fading;
     private Vector3 sizeDecreaseRate;
     
-    public void Init(PlayerScript player)
-    {
-        this.player = player;
-    }
-    
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindWithTag("Player").GetComponent<PlayerScript>();
         fading = false;
         transform.localScale /= 2;
     }
