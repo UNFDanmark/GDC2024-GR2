@@ -77,6 +77,7 @@ public class PlayerScript : MonoBehaviour
         else if (vert == -1 && hori == 1) degrees = 45;
         else if (vert == 0 && hori == 1) degrees = 0;
         else if (vert == 1 && hori == 1) degrees = 315;
+        
         if (degrees != -1)
         {
             float from = transform.eulerAngles.y;

@@ -61,20 +61,6 @@ public class InventoryManager : MonoBehaviour
             throw new Exception("Already picked that up :/");
         }
         own[id] = true;
-        int total = 0;
-        int got = 0;
-        for (int i = 0; i < own.Count; i++)
-        {
-            if (itemTypes[i] == itemTypes[id])
-            {
-                total += 1;
-                if (own[i])
-                {
-                    got += 1;
-                }
-            }
-        }
-        print(itemNames[id] + " aquired" + " (" + got + "/" + total + ")");
     }
     
     // Start is called before the first frame update
@@ -97,6 +83,6 @@ public class InventoryManager : MonoBehaviour
     {
         int got = totalInInventory(InventoryItemType.BodyPart);
 
-        bodypartCounter.text = $"Kropsdele:\n{got}/{total}";
+        bodypartCounter.text = $"{got}/{total}";
     }
 }
