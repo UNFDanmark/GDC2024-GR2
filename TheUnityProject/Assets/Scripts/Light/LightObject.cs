@@ -7,6 +7,7 @@ public abstract class LightObject : MonoBehaviour
 {
     private LightBulb[] lights;
     private bool state;
+    private bool first = true;
     
     GameObject FindRoom()
     {
@@ -41,12 +42,17 @@ public abstract class LightObject : MonoBehaviour
     {
         lights = FindRoom().GetComponentsInChildren<LightBulb>();
         LightInit();
-        LightChange();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (first)
+        {
+            first = false;
+            state = checkLight();
+            LightChange();
+        }
         bool newState = checkLight();
         if (state != newState)
         {
