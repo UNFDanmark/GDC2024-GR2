@@ -22,18 +22,33 @@ public class PlayerScript : MonoBehaviour
         return Input.GetKeyDown("space");
     }
 
-    public bool InFOV(Vector3 position)
+    public bool InFOV(GameObject go)
     {
-        position.y = 0;
+        Vector3 theirPosition = go.transform.position;
+        theirPosition.y = 0;
         Vector3 ownPosition = transform.position;
         ownPosition.y = 0;
-        Vector3 fromPlayer = position - ownPosition;
+        Vector3 fromPlayer = go.transform.position - ownPosition;
         if (fromPlayer.magnitude <= visionAroundRadius)
         {
             return true;
         }
 
         float angle = Mathf.Abs(Vector3.Angle(fromPlayer, transform.forward));
+
+
+        RaycastHit hit;
+        LayerMask mask = LayerMask.GetMask("Room");
+        if (Physics.Raycast(transform.position, fromPlayer.normalized, out hit, Mathf.Infinity, mask))
+        {
+            Debug.DrawRay(transform.position, fromPlayer.normalized, Color.red);
+            if (hit.collider.gameObject.name != go.name)
+            {
+                print("Not hit");
+                return false;
+            }
+        }
+        
         return angle <= fov;
     }
 

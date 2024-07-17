@@ -1,23 +1,27 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class RoomObject : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private Visibility vis;
+    private int alphaEffect;
+
+
+    private void Start()
     {
+        vis = GetComponent<Visibility>();
+        alphaEffect = vis.AddAlphaEffect();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetGone(float gone)
     {
-        
-    }
-
-    public void Set(bool state)
-    {
-        gameObject.SetActive(state);
+        if (gone == 1)
+        {
+            gameObject.SetActive(false);
+        }
+        vis.ModifyAlphaEffect(alphaEffect, gone);
     }
 
 }

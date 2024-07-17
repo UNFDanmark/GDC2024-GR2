@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InteractChild : MonoBehaviour
 {
-    private bool isInside = false;
+    public bool isInside = false;
 
     
     private float interactCooldownLeft = 0;
