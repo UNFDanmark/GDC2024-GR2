@@ -10,6 +10,7 @@ using Input = UnityEngine.Windows.Input;
 public class DemonScript : LightObject
 {
     public float patience;
+    private float currentPatience;
     
     private NavMeshAgent agent;
     private GameObject player;
@@ -29,6 +30,7 @@ public class DemonScript : LightObject
     // Start is called before the first frame update
     public override void LightInit()
     {
+        currentPatience = patience;
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindWithTag("Player");
         demonMode = InLight();
@@ -42,8 +44,8 @@ public class DemonScript : LightObject
     {
         if (demonMode)
         {
-            patience -= Time.deltaTime;
-            if (patience <= 0)
+            currentPatience -= Time.deltaTime;
+            if (currentPatience <= 0)
             {
                 agent.destination = player.transform.position;
             }
@@ -52,10 +54,12 @@ public class DemonScript : LightObject
 
     public override void EntersDark()
     {
+        currentPatience = patience;
         demonMode = true;
         meshFilter.mesh = DarkMesh;
         ren.materials[0] = DarkMaterial;
         col.isTrigger = true;
+        agent.enabled = true;
         // ændre mesh og materials
     }
 
@@ -65,6 +69,7 @@ public class DemonScript : LightObject
         meshFilter.mesh = LightMesh;
         ren.materials[0] = LightMaterial;
         col.isTrigger = false;
+        agent.enabled = false;
         // æændre tilbage
     }
 
