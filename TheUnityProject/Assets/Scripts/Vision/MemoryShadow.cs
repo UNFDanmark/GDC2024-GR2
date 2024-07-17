@@ -26,7 +26,8 @@ public class MemoryShadow : MonoBehaviour
         {
             
             
-        }else if (player.InFOV(transform.position))
+        }
+        else if (player.InFOV(transform.position))
         {
             fading = true;
         }

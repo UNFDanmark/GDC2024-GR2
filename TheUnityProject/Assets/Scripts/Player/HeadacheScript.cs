@@ -23,7 +23,11 @@ public class HeadacheScript : LightObject
             { 
                 SceneManager.LoadScene("GameOver");
             }
-
+        }
+        else
+        {
+            headache -= headacheRate * Time.deltaTime;
+            headacheBar.value = headache;
         }
     }
 
