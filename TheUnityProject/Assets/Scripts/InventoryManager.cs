@@ -15,7 +15,7 @@ public class InventoryManager : MonoBehaviour
 {
     public List<InventoryItemType> itemTypes;
     public List<string> itemNames;
-
+    private DialogueManager dialogue;
     private List<bool> own = new List<bool>();
     
     public TMP_Text bodypartCounter;
@@ -61,11 +61,18 @@ public class InventoryManager : MonoBehaviour
             throw new Exception("Already picked that up :/");
         }
         own[id] = true;
+        Message mes = new Message();
+        mes.text = "Picked up " + itemNames[id];
+        mes.name = "";
+        Dialogue dia = new Dialogue();
+        dia.dialogue = new Message[] {mes};
+        dialogue.DoDialogue(dia);
     }
     
     // Start is called before the first frame update
     void Start()
     {
+        dialogue = GetComponent<DialogueManager>();
         if(itemTypes.Count != itemNames.Count)
         {
             throw new Exception("Malformed item list :/");

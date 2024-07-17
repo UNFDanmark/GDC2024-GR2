@@ -26,6 +26,11 @@ public class DemonScript : LightObject
     public Material DarkMaterial;
     public Material LightMaterial;
     private Collider col;
+
+    public float getPatience()
+    {
+        return currentPatience;
+    }
     
     // Start is called before the first frame update
     public override void LightInit()
