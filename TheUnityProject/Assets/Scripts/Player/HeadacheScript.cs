@@ -13,6 +13,9 @@ public class HeadacheScript : LightObject
     public float headacheRate;
     public float recoveryRate;
     private AudioSource source;
+    public RawImage collectImg;
+    public Texture dark;
+    public Texture light;
 
     public override void LightInit()
     {
@@ -41,5 +44,14 @@ public class HeadacheScript : LightObject
             }
             
         }
+    }
+
+    public override void EntersDark()
+    {
+        collectImg.texture = dark;
+    }
+    public override void EntersLight()
+    {
+        collectImg.texture = light;
     }
 }

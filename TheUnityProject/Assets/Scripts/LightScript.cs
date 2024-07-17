@@ -2,19 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LightScript : Light
+public class LightScript : LightObject
 {
-    public bool whenVisible;
+    /*public bool whenVisible;
     
-    // Start is called before the first frame update
-    void Start()
+    public override bool InLight()
+    {
+        return state;
+    }
+
+    public virtual void LightInit()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public virtual void LightUpdate()
     {
         
     }
+    
+    public virtual void EntersLight()
+    {
+        
+    }
+    
+    public virtual void EntersDark()
+    {
+        
+    }*/
 }

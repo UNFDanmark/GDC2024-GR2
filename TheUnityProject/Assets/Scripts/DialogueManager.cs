@@ -16,6 +16,7 @@ public class DialogueManager : MonoBehaviour
     private float nextLetterIn;
     private PlayerScript player;
     public float betweenLettersTime;
+    public AudioSource dialogSound;
     
     // Start is called before the first frame update
     void Start()
@@ -58,9 +59,14 @@ public class DialogueManager : MonoBehaviour
             }
             if (nextLetter != dialogue.dialogue[dialogueProgress].text.Length)
             {
+                
                 nextLetterIn -= Time.deltaTime;
                 if (nextLetterIn <= 0)
                 {
+                    if (!dialogSound.isPlaying)
+                    {
+                        dialogSound.PlayOneShot(dialogSound.clip);
+                    }
                     nextLetterIn = betweenLettersTime;
                     text.text += dialogue.dialogue[dialogueProgress].text[nextLetter];
                     nextLetter++;
