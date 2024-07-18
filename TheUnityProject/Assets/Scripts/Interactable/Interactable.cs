@@ -9,6 +9,7 @@ public abstract class Interactable : MonoBehaviour
     public float interactCooldown = 0;
     private Renderer rend;
     private InteractChild child;
+    public int requiredItem;
     
     public float glow;
     public float glowTime;

@@ -30,6 +30,11 @@ public class DialogueManager : MonoBehaviour
         player = GameObject.FindWithTag("Player").GetComponent<PlayerScript>();
     }
 
+    public bool Active()
+    {
+        return active;
+    }
+
     // Update is called once per frame
     void Update()
     {

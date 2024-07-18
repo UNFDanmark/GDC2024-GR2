@@ -10,10 +10,13 @@ public class InteractChild : MonoBehaviour
     private float interactCooldownLeft = 0;
 
     private Interactable parent;
+
+    private InventoryManager inv;
     // Start is called before the first frame update
     void Start()
     {
         parent = transform.parent.gameObject.GetComponent<Interactable>();
+        inv = GameObject.FindWithTag("God").GetComponent<InventoryManager>();
         parent.InteractableInit();
     }
 

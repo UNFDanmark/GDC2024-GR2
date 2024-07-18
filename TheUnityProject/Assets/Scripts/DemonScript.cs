@@ -26,6 +26,7 @@ public class DemonScript : LightObject
     {
         player = GameObject.FindWithTag("Player");
         demonMode = !InLight();
+        
         current = 0;
         transform.position = startPosition;
         print(transform.position);
@@ -34,6 +35,7 @@ public class DemonScript : LightObject
         {
             rend = GetComponentInChildren<Renderer>();
         }
+        rend.enabled = demonMode;  
         print("NULL MESSAGE");
         print(rend == null);
     }

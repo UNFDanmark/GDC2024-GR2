@@ -10,6 +10,7 @@ TagManager:
   - DialogueObj
   - DialogueName
   - DialogueNameObj
+  - Music
   layers:
   - Default
   - TransparentFX

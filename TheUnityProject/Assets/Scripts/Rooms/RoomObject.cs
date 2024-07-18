@@ -7,12 +7,15 @@ public class RoomObject : MonoBehaviour
 {
     private Visibility vis;
     private int alphaEffect;
-
+    private Light light;
+    public bool ifLightThenWhat;
 
     private void Start()
     {
-        if (GetComponent<Light>() != null)
+        light = GetComponent<Light>();
+        if (light != null)
         {
+            light.enabled = ifLightThenWhat;
             return;
         }
         vis = GetComponent<Visibility>();
@@ -21,8 +24,13 @@ public class RoomObject : MonoBehaviour
 
     public void SetGone(float gone)
     {
-        if (GetComponent<Light>() != null)
+        if (vis == null)
         {
+            return;
+        }
+        if (light != null)
+        {
+            light.enabled = gone != 0;
             return;
         }
         if (gone == 1)

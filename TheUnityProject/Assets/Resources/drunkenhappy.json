@@ -1,0 +1,20 @@
+{
+  "dialogue": [
+    {
+      "name": "Semi-Drunk party-goer from yesterday",
+      "text": "Thank you"
+    },
+    {
+      "name": "You",
+      "text": "Where is my wife <:("
+    },
+    {
+      "name": "Semi-Drunk party-goer from yesterday",
+      "text": "I dont know"
+    },
+    {
+      "name": "",
+      "text": "You aquired knowledge about your wifes whereabouts"
+    }
+  ]
+}
