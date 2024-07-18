@@ -11,12 +11,20 @@ public class RoomObject : MonoBehaviour
 
     private void Start()
     {
+        if (GetComponent<Light>() != null)
+        {
+            return;
+        }
         vis = GetComponent<Visibility>();
         alphaEffect = vis.AddAlphaEffect();
     }
 
     public void SetGone(float gone)
     {
+        if (GetComponent<Light>() != null)
+        {
+            return;
+        }
         if (gone == 1)
         {
             gameObject.SetActive(false);

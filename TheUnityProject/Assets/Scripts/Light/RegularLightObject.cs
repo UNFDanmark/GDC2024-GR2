@@ -13,7 +13,8 @@ public class RegularLightObject : LightObject
     
     public override void EntersLight()
     {
-
+        meshFilter.mesh = LightMesh;
+        ren.materials[0] = LightMaterial;
     }
     
     public override void EntersDark()

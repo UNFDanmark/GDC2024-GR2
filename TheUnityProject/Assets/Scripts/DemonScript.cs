@@ -9,39 +9,33 @@ using Input = UnityEngine.Windows.Input;
 
 public class DemonScript : LightObject
 {
-    public float patience;
-    private float currentPatience;
+    public Vector3 startPosition;
+    public List<Vector3> route;
+    public List<float> speed;
+    public bool repeat;
+    private Renderer rend;
+    private int current;
     
-    private NavMeshAgent agent;
     private GameObject player;
 
     private bool demonMode;
     
     
-    // public variables til mesh og materials
-    private Renderer ren;
-    private MeshFilter meshFilter;
-    public Mesh DarkMesh;
-    public Mesh LightMesh;
-    public Material DarkMaterial;
-    public Material LightMaterial;
-    private Collider col;
-
-    public float getPatience()
-    {
-        return currentPatience;
-    }
-    
     // Start is called before the first frame update
     public override void LightInit()
     {
-        currentPatience = patience;
-        agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindWithTag("Player");
-        demonMode = InLight();
-        meshFilter = gameObject.GetComponent<MeshFilter>();
-        ren = gameObject.GetComponent<MeshRenderer>();
-        col = gameObject.GetComponent<Collider>();
+        demonMode = !InLight();
+        current = 0;
+        transform.position = startPosition;
+        print(transform.position);
+        rend = GetComponent<Renderer>();
+        if (rend == null)
+        {
+            rend = GetComponentInChildren<Renderer>();
+        }
+        print("NULL MESSAGE");
+        print(rend == null);
     }
 
     // Update is called once per frame
@@ -49,32 +43,36 @@ public class DemonScript : LightObject
     {
         if (demonMode)
         {
-            currentPatience -= Time.deltaTime;
-            if (currentPatience <= 0)
+            if (current == route.Count)
             {
-                agent.destination = player.transform.position;
+                if (repeat)
+                {
+                    current = 0;
+                }
+                else
+                {
+                    return;
+                }
+            }
+            transform.position = Vector3.MoveTowards(transform.position, route[current], speed[current] * Time.deltaTime);
+            if (transform.position == route[current])
+            {
+                current++;
+
             }
         }
     }
 
     public override void EntersDark()
     {
-        currentPatience = patience;
         demonMode = true;
-        meshFilter.mesh = DarkMesh;
-        ren.materials[0] = DarkMaterial;
-        col.isTrigger = true;
-        agent.enabled = true;
-        // ændre mesh og materials
+        rend.enabled = true;
     }
 
     public override void EntersLight()
     {
         demonMode = false;
-        meshFilter.mesh = LightMesh;
-        ren.materials[0] = LightMaterial;
-        col.isTrigger = false;
-        agent.enabled = false;
+        rend.enabled = false;
         // æændre tilbage
     }
 

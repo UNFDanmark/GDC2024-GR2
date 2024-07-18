@@ -10,6 +10,10 @@ public class PlayerScript : MonoBehaviour
     public float rotationSpeed;
     public float fov;
     public float visionAroundRadius;
+    public Animator anim;
+    public AudioSource audio;
+    public List<AudioClip> clips;
+    private bool footstep;
     
     // Start is called before the first frame update
     void Start()
@@ -42,6 +46,7 @@ public class PlayerScript : MonoBehaviour
         if (Physics.Raycast(transform.position, fromPlayer.normalized, out hit, Mathf.Infinity, mask))
         {
             Debug.DrawRay(transform.position, fromPlayer.normalized, Color.red);
+            print(hit.collider.gameObject.name);
             if (hit.collider.gameObject.name != go.name)
             {
                 print("Not hit");
@@ -112,6 +117,20 @@ public class PlayerScript : MonoBehaviour
                 transform.RotateAround(transform.position, Vector3.up, rotation);
             }
         }
-        
+        anim.SetFloat("Speed", rb.velocity.magnitude);
+        if (!audio.isPlaying && rb.velocity.magnitude != 0)
+        {
+            
+            if (footstep)
+            {
+                audio.PlayOneShot(clips[0]);
+            }
+            else
+            {
+                audio.PlayOneShot(clips[1]);
+            }
+
+            footstep = !footstep;
+        }
     }
 }

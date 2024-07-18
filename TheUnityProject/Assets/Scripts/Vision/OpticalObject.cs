@@ -7,12 +7,16 @@ public class OpticalObject : MonoBehaviour
 {
     private PlayerScript player;
 
-    private MeshRenderer rend;
+    private Renderer rend;
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindWithTag("Player").GetComponent<PlayerScript>();
-        rend = GetComponent<MeshRenderer>();
+        rend = GetComponent<Renderer>();
+        if (rend == null)
+        {
+            rend = GetComponentInChildren<Renderer>();
+        }
     }
 
     // Update is called once per frame

@@ -14,8 +14,12 @@ public class Visibility : MonoBehaviour
     void Start()
     {
         rend = GetComponent<Renderer>();
+        if (rend == null)
+        {
+            rend = GetComponentInChildren<Renderer>();
+        }
         startColor = rend.material.color;
-    }
+    }   
 
     // Update is called once per frame
     void Update()
